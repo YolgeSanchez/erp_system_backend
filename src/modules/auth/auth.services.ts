@@ -16,7 +16,7 @@ class AuthService {
 
     // change this if you add more files that you want to return
     const publicUserData = {
-      id: userInDB._id.toHexString(),
+      id: userInDB.id,
       name: userInDB.name,
       email: userInDB.email,
       role: userInDB.role,
@@ -30,7 +30,7 @@ class AuthService {
 
     // change this if you add more files that you want to return
     const userData = {
-      id: userInDB._id.toHexString(),
+      id: userInDB.id,
       name: userInDB.name,
       email: userInDB.email,
       role: userInDB.role,
