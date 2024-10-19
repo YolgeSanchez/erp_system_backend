@@ -10,7 +10,7 @@ class UserServices {
       if (!userInDB) throw new AppError('USER_NOT_FOUND', 404)
       // change this if you add more files that you want to return
       const userData = {
-        id: userInDB._id.toHexString(),
+        id: userInDB.id,
         name: userInDB.name,
         email: userInDB.email,
         role: userInDB.role,
@@ -28,7 +28,7 @@ class UserServices {
     const usersData = users.map((user) => {
       // change this if you add more files that you want to return
       const userData = {
-        id: user._id.toHexString(),
+        id: user.id,
         name: user.name,
         email: user.email,
         role: user.role,
@@ -45,7 +45,7 @@ class UserServices {
         throw new AppError('USER_NOT_FOUND', 404)
       }
       const publicUserData = {
-        id: user._id.toHexString(),
+        id: user.id,
         name: user.name,
         email: user.email,
         role: user.role,
@@ -63,7 +63,7 @@ class UserServices {
         throw new AppError('USER_NOT_FOUND', 404)
       }
       const publicUserData = {
-        id: user._id.toHexString(),
+        id: user.id,
         name: user.name,
         email: user.email,
         role: user.role,
@@ -88,7 +88,7 @@ class UserServices {
       const insertedUser = await UserRepository.insertUser({ ...user, password })
       // change this if you add more files that you want to return
       const publicUserData = {
-        id: insertedUser._id.toHexString(),
+        id: insertedUser.id,
         name: insertedUser.name,
         email: insertedUser.email,
         role: insertedUser.role,
