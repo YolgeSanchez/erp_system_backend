@@ -1,4 +1,3 @@
-import pool from './config/postgress.config'
 import app from './app'
 import initAdminUser from './utils/adminUser.handle'
 
