@@ -1,9 +1,7 @@
 import UserServices from './users.services'
 import handleHttpError from '../../utils/error.handle'
-import jwtUtils from '../../utils/jwt.handle'
 import { AppError } from '../../types/errors'
 import { Request, Response } from 'express'
-import { IUser } from './users.interfaces'
 import { RequestExt } from '../../types/express'
 
 class UserController {

@@ -1,6 +1,5 @@
 import { Request, Response } from 'express'
 import { IAuth } from './auth.interfaces'
-import { IUser } from '../users/users.interfaces'
 import handleHttpError from '../../utils/error.handle'
 import { AppError } from '../../types/errors'
 import AuthService from './auth.services'
