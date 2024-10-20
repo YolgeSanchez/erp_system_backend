@@ -14,9 +14,12 @@ const router = Router()
  * http://localhost:3001/api/users/:id [DELETE]
  * http://localhost:3001/api/users [POST]
  */
-router.use(auth(['super', 'admin']))
-router.get('/', UsersControllers.getUsers)
+
+router.use(auth(['super', 'admin', 'employee', 'inventory']))
 router.get('/:id', UsersControllers.getUser)
+router.get('/', UsersControllers.getUsers)
+
+router.use(auth(['super', 'admin']))
 router.put('/:id', validate(registerSchema), UsersControllers.updateUser)
 router.delete('/:id', UsersControllers.deleteUser)
 router.post('/', validate(registerSchema), UsersControllers.createUser)
