@@ -3,6 +3,7 @@ import { z } from 'zod'
 enum Roles {
   super = 'super',
   admin = 'admin',
+  manager = 'manager',
   inventory = 'inventory',
   employee = 'employee',
 }

@@ -15,7 +15,7 @@ const router = Router()
  * http://localhost:3001/api/users [POST]
  */
 
-router.use(auth(['super', 'admin', 'employee', 'inventory']))
+router.use(auth(['super', 'admin', 'manager', 'employee', 'inventory']))
 router.get('/:id', UsersControllers.getUser)
 router.get('/', UsersControllers.getUsers)
 

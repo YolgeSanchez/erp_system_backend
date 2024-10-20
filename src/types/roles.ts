@@ -1,1 +1,1 @@
-export type Roles = 'super' | 'admin' | 'inventory' | 'employee'
+export type Roles = 'super' | 'admin' | 'manager' | 'inventory' | 'employee'
