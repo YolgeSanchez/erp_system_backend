@@ -7,7 +7,7 @@ const initAdminUser = async () => {
     const users = await UserRepository.getUsers()
     let adminExists = false
     if (users) {
-      users.filter((user) => user.role === 'admin').length > 0
+      users.filter((user) => user.role === 'super').length > 0
         ? (adminExists = true)
         : (adminExists = false)
     }
@@ -15,10 +15,10 @@ const initAdminUser = async () => {
       console.log('No admin found, creating one...')
 
       const defaultAdmin: IUser = {
-        name: 'Admin',
-        email: 'admin@admin.com',
-        password: await encrypt('admin1234'), // Default password, make sure to encrypt it
-        role: 'admin',
+        name: 'super',
+        email: 'super@super.com',
+        password: await encrypt('super1234'), // Default password, make sure to encrypt it
+        role: 'super',
       }
 
       await UserRepository.insertUser(defaultAdmin)

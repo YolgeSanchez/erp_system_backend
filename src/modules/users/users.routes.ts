@@ -8,17 +8,21 @@ const router = Router()
 
 /**
  * [users routes]
- * http://localhost:3001/api/users [GET] [admin & user]
- * http://localhost:3001/api/users/:id [GET] [admin & user]
- * http://localhost:3001/api/users/:id [PUT] [admin only]
- * http://localhost:3001/api/users/:id [DELETE] [admin only]
- * http://localhost:3001/api/users [POST] [admin only]
+ * http://localhost:3001/api/users [GET]
+ * http://localhost:3001/api/users/:id [GET]
+ * http://localhost:3001/api/users/:id [PUT]
+ * http://localhost:3001/api/users/:id [DELETE]
+ * http://localhost:3001/api/users [POST]
  */
-router.get('/', auth(['admin', 'user']), UsersControllers.getUsers)
-router.get('/:id', auth(['admin', 'user']), UsersControllers.getUser)
-router.put('/:id', auth(['admin']), validate(registerSchema), UsersControllers.updateUser)
-router.delete('/:id', auth(['admin']), UsersControllers.deleteUser)
-router.post('/', auth(['admin']), validate(registerSchema), UsersControllers.createUser)
+
+router.use(auth(['super', 'admin', 'employee', 'inventory']))
+router.get('/:id', UsersControllers.getUser)
+router.get('/', UsersControllers.getUsers)
+
+router.use(auth(['super', 'admin']))
+router.put('/:id', validate(registerSchema), UsersControllers.updateUser)
+router.delete('/:id', UsersControllers.deleteUser)
+router.post('/', validate(registerSchema), UsersControllers.createUser)
 
 // export the routes
 export default router

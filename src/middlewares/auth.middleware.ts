@@ -17,7 +17,8 @@ export const auth =
 
       // search for the user by the payload id
       const user = await authServices.getUser(payload.id)
-      if (!role.includes(user.role)) throw new AppError('YOU_DONT_HAVE_THE_PERMISSION', 403)
+
+      if (role && !role.includes(user.role)) throw new AppError('YOU_DONT_HAVE_THE_PERMISSION', 403)
       req.user = user
       next()
     } catch (error) {

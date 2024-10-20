@@ -38,7 +38,26 @@ class UserServices {
     return usersData
   }
 
-  updateUser = async (id: string, updatedUser: IUser): Promise<IPublicUserData> => {
+  updateUser = async (
+    id: string,
+    updatedUser: IUser,
+    userRequesting: IPublicUserData | undefined
+  ): Promise<IPublicUserData> => {
+    // logic to verify that an admin cannot update another admin or update someone to be admin
+    if (userRequesting?.role == 'admin' && ['admin', 'super'].includes(updatedUser.role))
+      throw new AppError('YOU_DONT_HAVE_THE_PERMISSION', 403)
+    else {
+      // get user
+      const requestedUser = await UserRepository.getUser(id)
+      if (!requestedUser) throw new AppError('USER_NOT_FOUND', 404)
+
+      console.log(requestedUser)
+      if (['super', 'admin'].includes(requestedUser.role) && userRequesting?.role == 'admin') {
+        throw new AppError('YOU_DONT_HAVE_THE_PERMISSION', 403)
+      }
+    }
+
+    // update logic
     try {
       const user = await UserRepository.updateUser(id, updatedUser)
       if (!user) {
@@ -56,26 +75,32 @@ class UserServices {
     }
   }
 
-  deleteUser = async (id: string): Promise<IPublicUserData> => {
+  deleteUser = async (id: string, userRequesting: IPublicUserData | undefined) => {
+    // get user
+    const requestedUser = await UserRepository.getUser(id)
+    if (!requestedUser) throw new AppError('USER_NOT_FOUND', 404)
+
+    console.log(requestedUser)
+    if (['super', 'admin'].includes(requestedUser.role) && userRequesting?.role == 'admin') {
+      throw new AppError('YOU_DONT_HAVE_THE_PERMISSION', 403)
+    }
+
     try {
-      const user = await UserRepository.deleteUser(id)
-      if (!user) {
-        throw new AppError('USER_NOT_FOUND', 404)
-      }
-      const publicUserData = {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      }
-      return publicUserData
+      await UserRepository.deleteUser(id)
     } catch (error) {
       throw new AppError('USER_NOT_FOUND', 404)
     }
   }
 
   // create user service
-  createUser = async (user: IUser): Promise<IPublicUserData> => {
+  createUser = async (
+    user: IUser,
+    userRequesting: IPublicUserData | undefined
+  ): Promise<IPublicUserData> => {
+    // logic to verify that an admin cannot update another admin or update someone to be admin
+    if (userRequesting?.role == 'admin' && ['admin', 'super'].includes(user.role))
+      throw new AppError('YOU_DONT_HAVE_THE_PERMISSION', 403)
+
     // verify not existing user with this email
     const isEmailInUse = await UserRepository.getByEmail(user.email)
     if (isEmailInUse) throw new AppError('EMAIL_ALREADY_IN_USE', 409)
