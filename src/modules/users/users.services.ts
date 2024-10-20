@@ -111,7 +111,6 @@ class UserServices {
     // create the user and save it
     try {
       const insertedUser = await UserRepository.insertUser({ ...user, password })
-      // change this if you add more files that you want to return
       const publicUserData = {
         id: insertedUser.id,
         name: insertedUser.name,

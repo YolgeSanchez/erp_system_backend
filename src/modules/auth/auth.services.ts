@@ -14,7 +14,6 @@ class AuthService {
     const isPasswordCorrect = await verified(user.password, hash)
     if (!isPasswordCorrect) throw new AppError('WRONG_PASSWORD', 401)
 
-    // change this if you add more files that you want to return
     const publicUserData = {
       id: userInDB.id,
       name: userInDB.name,
@@ -28,7 +27,6 @@ class AuthService {
     const userInDB = await AuthRepository.getUser(id)
     if (!userInDB) throw new AppError('USER_NOT_FOUND', 404)
 
-    // change this if you add more files that you want to return
     const userData = {
       id: userInDB.id,
       name: userInDB.name,
