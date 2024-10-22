@@ -5,11 +5,11 @@ import cookieParser from 'cookie-parser'
 
 import authRoutes from './modules/auth/auth.routes'
 import userRoutes from './modules/users/users.routes'
+import inventoryRoutes from './modules/inventory/inventory.routes'
 
 const app = express()
 
 // [middlewares]
-// apply the cors setting you want
 app.use(cors())
 app.use(express.json())
 app.use(cookieParser())
@@ -17,7 +17,7 @@ app.use(cookieParser())
 // [routes]
 app.use('/api/auth', authRoutes)
 app.use('/api/users', userRoutes)
-// add all the other routes for your api
+app.use('/api/inventory', inventoryRoutes)
 
 // export the express app
 export default app
