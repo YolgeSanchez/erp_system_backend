@@ -7,6 +7,11 @@ const pool = new Pool({
   database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
   port: Number(process.env.DB_PORT),
+
+  max: 25,
+  idleTimeoutMillis: 1000,
+  connectionTimeoutMillis: 2000,
+  maxUses: 7500,
 })
 
 export default pool
