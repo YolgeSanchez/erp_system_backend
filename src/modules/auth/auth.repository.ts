@@ -6,6 +6,8 @@ class AuthRepository {
   getUser = async (id: string): Promise<IPublicUserData> => {
     const client = await pool.connect()
     const result = await client.query<IPublicUserData>('SELECT * FROM users WHERE id = $1', [id])
+
+    client.release()
     return result.rows[0]
   }
 
