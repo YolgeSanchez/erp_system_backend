@@ -2,7 +2,7 @@ import { Router } from 'express'
 import InventoryController from './inventory.controllers'
 import { auth } from '../../middlewares/auth.middleware'
 import { validate } from '../../middlewares/dataValidation'
-import { inventorySchema } from './inventory.schema'
+import { inventorySchema } from './inventory.schemas'
 
 const router = Router()
 
